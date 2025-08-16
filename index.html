@@ -4,125 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-do List</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        background-color: #ffddfa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-      .container {
-        background: white;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        width: 300px;
-      }
-      h1 {
-        text-align: center;
-      }
-      input,
-      button {
-        width: 100%;
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-      button {
-        background: #9f42bb;
-        color: white;
-        border: none;
-      }
-      button:hover {
-        background: #e372e7;
-      }
-      ul {
-        padding: 0;
-        list-style: none;
-      }
-      li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 0.5rem;
-      }
-      .completed {
-        text-decoration: line-through;
-        color: gray;
-      }
-      .icons {
-        cursor: pointer;
-        margin-left: 0.5rem;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <h1>To-do List</h1>
       <input type="text" id="taskInput" placeholder="Add a task..." />
-      <button onclick="addTask()">Add Task</button>
+      <button id="addBtn">Add Task</button>
       <ul id="taskList"></ul>
     </div>
 
-    <script>
-      const taskInput = document.getElementById("taskInput");
-      const taskList = document.getElementById("taskList");
-
-      window.onload = () => {
-        JSON.parse(localStorage.getItem("tasks") || "[]").forEach((t) =>
-          createTask(t.text, t.completed)
-        );
-      };
-
-      function addTask() {
-        const text = taskInput.value.trim();
-        if (text) {
-          createTask(text, false);
-          taskInput.value = "";
-          saveTasks();
-        }
-      }
-
-      function createTask(text, completed) {
-        const li = document.createElement("li");
-        const span = document.createElement("span");
-        span.textContent = text;
-        if (completed) span.classList.add("completed");
-
-        const check = document.createElement("span");
-        check.textContent = "✔";
-        check.className = "icons";
-        check.onclick = () => {
-          span.classList.toggle("completed");
-          saveTasks();
-        };
-
-        const del = document.createElement("span");
-        del.textContent = "🗑️";
-        del.className = "icons";
-        del.onclick = () => {
-          li.remove();
-          saveTasks();
-        };
-
-        li.append(span, check, del);
-        taskList.appendChild(li);
-      }
-
-      function saveTasks() {
-        const tasks = [...taskList.children].map((li) => ({
-          text: li.querySelector("span").textContent,
-          completed: li.querySelector("span").classList.contains("completed"),
-        }));
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
