@@ -2,16 +2,16 @@ const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 const addButton = document.getElementById("addBtn");
 
-// بارگذاری کارها از localStorage
+// Load tasks from localStorage
 window.onload = () => {
   const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   tasks.forEach((t) => createTask(t.text, t.completed));
 };
 
-// وصل کردن دکمه Add Task
+// Attach Add Task button
 addButton.addEventListener("click", addTask);
 
-// تابع اضافه کردن کار
+// Function to add a task
 function addTask() {
   const text = taskInput.value.trim();
   if (text) {
@@ -21,7 +21,7 @@ function addTask() {
   }
 }
 
-// ساخت آیتم کار
+// Create a task item
 function createTask(text, completed) {
   const li = document.createElement("li");
 
@@ -49,7 +49,7 @@ function createTask(text, completed) {
   taskList.appendChild(li);
 }
 
-// ذخیره کارها در localStorage
+// Save tasks in localStorage
 function saveTasks() {
   const tasks = [...taskList.children].map((li) => {
     const textSpan = li.querySelector("span:first-child");
